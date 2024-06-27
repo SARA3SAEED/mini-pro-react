@@ -15,10 +15,14 @@ export default function Dashboard() {
     async function fetchBestSellers() {
       const apiKey = 'sDeM4gttV5dQwJ1BIQsECm1bAeMjQtFi';
       const response = await axios.get(`https://api.nytimes.com/svc/books/v3/lists/full-overview.json?date=current&api-key=${apiKey}`);
-      console.log(response.data);
-      setBestSellers(response.data.results.lists);
-      setSearchResults(response.data.results.lists);
-    };
+      console.log('API Response:', response.data);
+      
+      // Flatten the array of lists into a single array of books
+      const books = response.data.results.lists.flatMap(list => list.books);
+      
+      setBestSellers(books);
+      setSearchResults(books);
+    }
 
     fetchBestSellers();
     window.addEventListener('scroll', handleScroll);
@@ -48,10 +52,8 @@ export default function Dashboard() {
       return;
     }
 
-    const filteredResults = bestSellers.filter(list =>
-      list.books.some(book =>
-        book.title.toLowerCase().startsWith(searchTerm.toLowerCase())
-      )
+    const filteredResults = bestSellers.filter(book =>
+      book.title.toLowerCase().startsWith(searchTerm.toLowerCase())
     );
 
     console.log('Filtered Results:', filteredResults);
@@ -78,11 +80,15 @@ export default function Dashboard() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
               </div>
+
+
+
+              
               <input
                 type="search"
                 id="default-search"
                 className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search Mockups, Logos..."
+                placeholder="Search Books..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 required
@@ -104,14 +110,9 @@ export default function Dashboard() {
               <p className="text-white">Oops! The book you searched for was not found.</p>
             </div>
           ) : (
-            searchResults.map((list) => (
-              <div key={list.list_id} className="w-full m-9 p-2">
-                <h2 className="text-lg text-white bg-primary rounded p-1 text-center m-14">{list.display_name}</h2>
-                <div className="flex flex-wrap">
-                  {list.books.map((book) => (
-                    <Card key={book.primary_isbn13} book={book} />
-                  ))}
-                </div>
+            searchResults.map((book, index) => (
+              <div key={`${book.primary_isbn13}-${index}`} className="flex flex-wrap m-2 p-2">
+                <Card key={book.primary_isbn13} book={book} />
               </div>
             ))
           )}
@@ -130,7 +131,7 @@ export default function Dashboard() {
             }}
             onClick={scrollToTop}
           >
-          <img src="https://cdn-icons-png.flaticon.com/128/3272/3272638.png"  style={{width:"50px"}} />
+            <img src="https://cdn-icons-png.flaticon.com/128/3272/3272638.png" style={{ width: "50px" }} />
           </button>
         )}
       </main>

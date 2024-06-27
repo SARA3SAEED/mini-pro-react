@@ -1,10 +1,11 @@
 import React from 'react';
-import { useFavorites } from '../pages/FavoriteContext';
+import { useFavorites } from '../pages/FavoriteContext'; 
 
 export default function Card({ book }) {
-  const { favorites, addFavorite } = useFavorites();
+  const { favorites, addFavorite, markAsRead, readBooks } = useFavorites();
 
   const isFavorite = favorites.some(fav => fav.primary_isbn13 === book.primary_isbn13);
+  const isRead = readBooks.some(read => read.primary_isbn13 === book.primary_isbn13);
 
   return (
     <div className="card bg-base-100 w-72 shadow-xl m-4">
@@ -20,14 +21,17 @@ export default function Card({ book }) {
           </a>
           <button
             onClick={() => addFavorite(book)}
-            style={{border: " 1px solid"}}
-            className={`btn s ${isFavorite ? 'bg-blue-200 h-[50px]text-white' : ''}`}
+            className={`btn btn-outline ${isFavorite ? 'bg-blue-300 text-white' : ''}`}
+            style={{width: '60px', height: '40px', border: '1px solid'}}
           >
-            <img
-              src="https://cdn-icons-png.flaticon.com/128/11052/11052170.png"
-              alt="Favorite Icon"
-              className="w-9 h-9 mx-2 cursor-pointer"
-            />
+            Favorite
+          </button>
+          <button
+            onClick={() => markAsRead(book)}
+            className={`btn btn-outline ${isRead ? 'bg-[#3b82f6] text-white' : ''}`}
+            style={{width: '60px', height: '40px'}}
+          >
+            Done
           </button>
         </div>
       </div>

@@ -68,7 +68,7 @@ export default function Main() {
             <div className="flex items-center mb-5">
               <svg width="24" height="24" fill="none" className="text-green-500 mr-1" viewBox="0 0 24 24">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75"></path>
-              </svg>lntegrations
+              </svg>White Labelling
             </div>
             <div className="mt-auto w-full">
               <button className="bg-blue-600 rounded-xl cursor-pointer text-white py-2 border-none w-full flex items-center px-3">

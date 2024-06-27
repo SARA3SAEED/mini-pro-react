@@ -15,7 +15,7 @@ export default function Home() {
             <div className="w-full lg:w-1/2">
             <div className="lg:max-w-lg">
                 <h1 className="text-3xl font-bold tracking-wide text-gray-800 dark:text-white lg:text-5xl">
-                Easiest way to create your website
+                Easiest way to create your account
                 </h1>
 
                 <div className="mt-8 space-y-5">
@@ -23,14 +23,14 @@ export default function Home() {
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <span className="mx-2">Clean and Simple Layout</span>
+                    <span className="mx-2">Clean and Simple Read</span>
                 </p>
 
                 <p className="flex items-center -mx-2 text-gray-700 dark:text-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <span className="mx-2">Just Copy Paste Coding</span>
+                    <span className="mx-2">Speed to Search</span>
                 </p>
 
                 <p className="flex items-center -mx-2 text-gray-700 dark:text-gray-200">
