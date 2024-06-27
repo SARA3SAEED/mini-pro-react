@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -38,13 +37,25 @@ export const FavoriteProvider = ({ children }) => {
   }, [userId]);
 
   const addFavorite = async (book) => {
-    // Check if the book is already in favorites
     if (favorites.some(fav => fav.primary_isbn13 === book.primary_isbn13)) {
       console.log('Book already in favorites');
-      return; // Exit function early if book is already favorited
+      return; 
     }
 
     const updatedFavorites = [...favorites, book];
+    setFavorites(updatedFavorites);
+
+    if (userId) {
+      try {
+        await axios.put(`https://667c98cf3c30891b865d188b.mockapi.io/books/${userId}`, { favorite: updatedFavorites });
+      } catch (error) {
+        console.error('Failed to update favorites', error);
+      }
+    }
+  };
+
+  const removeFavorite = async (book) => {
+    const updatedFavorites = favorites.filter(fav => fav.primary_isbn13 !== book.primary_isbn13);
     setFavorites(updatedFavorites);
 
     if (userId) {
@@ -74,11 +85,26 @@ export const FavoriteProvider = ({ children }) => {
     }
   };
 
+  const removeReadBook = async (book) => {
+    const updatedReadBooks = readBooks.filter(read => read.primary_isbn13 !== book.primary_isbn13);
+    setReadBooks(updatedReadBooks);
+
+    if (userId) {
+      try {
+        await axios.put(`https://667c98cf3c30891b865d188b.mockapi.io/books/${userId}`, { read: updatedReadBooks });
+      } catch (error) {
+        console.error('Failed to update read books', error);
+      }
+    }
+  };
+
   const value = {
     favorites,
     addFavorite,
+    removeFavorite,
     readBooks,
     markAsRead,
+    removeReadBook,
   };
 
   return (

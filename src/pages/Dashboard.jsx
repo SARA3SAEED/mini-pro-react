@@ -17,7 +17,6 @@ export default function Dashboard() {
       const response = await axios.get(`https://api.nytimes.com/svc/books/v3/lists/full-overview.json?date=current&api-key=${apiKey}`);
       console.log('API Response:', response.data);
       
-      // Flatten the array of lists into a single array of books
       const books = response.data.results.lists.flatMap(list => list.books);
       
       setBestSellers(books);
